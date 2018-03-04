@@ -2,16 +2,19 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+	logo.load("ershou_logo.png");
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	ofPixels & pixels = logo.getPixels();
+	videoTexture.loadData(pixels);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+//	logo.draw(0,0);
+	mainOutputSyphonServer.publishTexture(&videoTexture);
 
 }
 
