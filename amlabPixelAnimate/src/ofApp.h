@@ -9,13 +9,23 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-
+	bool updateBool = true;
+	
+	int renderW = 1920;
+	int renderH = 1080;
 	
 	ofImage logo;
-	ofTexture videoTexture;
-	ofxSyphonServer mainOutputSyphonServer;
+	ofPixels pixels;
+//	ofTexture videoTexture;
+	
+	ofMesh mesh;
+	ofFbo fbo;
+	ofxSyphonServer textureSyphonServer;
+	
+	ofEasyCam cam;
 
-		void keyPressed(int key);
+	
+	void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);

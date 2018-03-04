@@ -2,20 +2,41 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofSetVerticalSync(true);
+	ofSetFrameRate(30);
+	ofSetVerticalSync(true);
 	logo.load("ershou_logo.png");
+	pixels = logo.getPixels();
+	
+	fbo.allocate(renderW,renderH,GL_RGBA);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	ofPixels & pixels = logo.getPixels();
-	videoTexture.loadData(pixels);
+//	ofPixels & pixels = logo.getPixels();
+//	videoTexture.loadData(pixels);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//	logo.draw(0,0);
-	mainOutputSyphonServer.publishTexture(&videoTexture);
-
+	fbo.begin();
+	
+	// black background
+	ofBackground(0);
+	
+	// even points can overlap with each other, let's avoid that
+	cam.begin();
+	ofScale(1,-1,1); // flip the y axis and zoom in a bit
+	//	ofRotateY(90);
+	ofTranslate(-renderW / 2, -renderH / 2);
+	//	mesh.draw();
+	
+	cam.end();
+	
+	fbo.end();
+	
+	textureSyphonServer.publishTexture(&fbo.getTexture());
 }
 
 //--------------------------------------------------------------
